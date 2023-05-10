@@ -1,4 +1,4 @@
-0.4.1 - 2023-05-10
+0.4.2 - 2023-05-10
 ==================
 Update - Allow the gradlew to not be present in current directory, but use the -p argument to specify the path
 

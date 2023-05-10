@@ -18,6 +18,10 @@ def main(argv=None):  # type: (Optional[Sequence[str]]) -> int
         '-p', '--wrapper-path', action='store',
         help='Specifies the path where the gradle wrapper script and the build.gradle is.'
     )
+    parser.add_argument(
+        '-o', '--output', action='store_true',
+        help='Prints the output of all executed gradle commands.'
+    )
     args = parser.parse_args(argv)
 
     if args.wrapper or args.wrapper_path is not None:
