@@ -1,6 +1,6 @@
 0.4.1 - 2023-05-10
 ==================
-- Update - `gradle-spotless` now executes `spotlessCheck` and `spotlessApply` rather than `spotlessJavaCheck` and `spotlessJavaApply`. Now supports projects using Java Kotlin, Scala, etc.
+Update - Allow the gradlew to not be present in current directory, but use the -p argument to specify the path
 
 0.3.0 - 2021-01-08
 ==================
