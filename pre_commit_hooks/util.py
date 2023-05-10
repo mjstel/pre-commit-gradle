@@ -70,7 +70,8 @@ def run_gradle_wrapper_task(wrapper, output, *tasks):  # type: (str, bool, *str)
 
     try:
         print("{}Running 'gradle {}' with wrapper enabled.{}".format(bcolors.OKBLUE, ' '.join(tasks), bcolors.ENDC))
-        cmd_output(output, os.path.sep.join([wrapper, 'gradlew']), *tasks)
+        external_wrapper_path = ['-p', wrapper] if wrapper != '.' else []
+        cmd_output(output, os.path.sep.join([wrapper, 'gradlew']), *external_wrapper_path, *tasks)
         return 0
     except CalledProcessError as e:
         print(f"{bcolors.FAIL}The above error occurred running gradle wrapper task.{bcolors.ENDC}")
