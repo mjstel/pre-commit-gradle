@@ -40,6 +40,11 @@ def cmd_output(output, *cmd, **kwargs):  # type: (bool, *str, **Any) -> str
         raise CalledProcessError(cmd, retcode, proc.returncode, stdout, stderr)
     return stdout
 
+def wrapper_arg_type(value):
+    if value is None:
+        return './'
+    else:
+        return value
 
 def run_gradle_task(output, *tasks):  # type: (bool, *str) -> int
     if which('gradle') is None:
@@ -55,8 +60,8 @@ def run_gradle_task(output, *tasks):  # type: (bool, *str) -> int
         return 1
 
 
-def run_gradle_wrapper_task(output, *tasks):  # type: (bool, *str) -> int
-    if which('gradlew', path='.') is None:
+def run_gradle_wrapper_task(wrapper, output, *tasks):  # type: (str, bool, *str) -> int
+    if which('gradlew', path=wrapper) is None:
         print(
             f"{bcolors.FAIL}Could not locate gradle wrapper. Initialize with `gradle wrapper`, "
             f"or remove the -w (--wrapper) flag to use native gradle.{bcolors.ENDC}"
@@ -65,7 +70,7 @@ def run_gradle_wrapper_task(output, *tasks):  # type: (bool, *str) -> int
 
     try:
         print("{}Running 'gradle {}' with wrapper enabled.{}".format(bcolors.OKBLUE, ' '.join(tasks), bcolors.ENDC))
-        cmd_output(output, '.{}gradlew'.format(os.path.sep), *tasks)
+        cmd_output(output, os.path.sep.join([wrapper, 'gradlew']), *tasks)
         return 0
     except CalledProcessError as e:
         print(f"{bcolors.FAIL}The above error occurred running gradle wrapper task.{bcolors.ENDC}")
